@@ -1,15 +1,15 @@
-<!DOCTYPE html>
 <html lang="en">
-  <%- include('../partials/head') %>
+  <%-include("../partials/head")-%>
   <body>
     <%- include('../partials/nav') %>
-    <div class="container">
+    <div class="m-8 bg-red-500 uppercase">
       <% if(blogs.length > 0) { %> <% blogs.forEach(blog => { %>
       <a href="/blogs/<%= blog._id %>">
-        <h3><%= blog.title %></h3>
-        <p><%= blog.snippet %></p>
+        <h3 ><%= blog.title %></h3>
+        <p class="underline"><%= blog.snippet %></p>
       </a>
       <% }) %> <% } %>
     </div>
+    <%- include('../partials/footer') %>
   </body>
 </html>

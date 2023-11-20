@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const dotenv = require('dotenv')
 const { default: mongoose } = require("mongoose");
 const blogRoutes = require('./routes/blogRoutes');
+const path = require('path');
 
 
 const app = express();
@@ -14,14 +15,20 @@ const dbURI = process.env.MONGODB_URI;
 
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => app.listen(3000))
+  .then((result) => app.listen(3002))
   .catch((err) => console.log(err));
 
 // register view engine
-app.set("view engine", "ejs");
+/* app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
 
 // middleware
-app.use(express.static('public'));
+//app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public'))) */
+
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
