@@ -1,4 +1,5 @@
 const Blog = require("../models/blog");
+const processHTMLWithPostHTML = require("../htmlProcessor");
 
 const blog_index = (req, res) => {
   Blog.find()
@@ -11,15 +12,20 @@ const blog_index = (req, res) => {
     });
 };
 
-const blog_details = (req, res) => {
-  const id = req.params.id;
-  Blog.findById(id)
-    .then((result) => {
-      res.render("blogs/details", { blog: result });
-    })
-    .catch((err) => {
-      res.status(404).render("404");
-    });
+const blog_details = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await Blog.findById(id);
+    if (!result) {
+      return res.status(404).render("404");
+    }
+    result.body = await processHTMLWithPostHTML(result.body);
+
+    res.render("blogs/details", { blog: result });
+  } catch (error) {
+    return res.status(404).render("404");
+    console.log(error);
+  }
 };
 
 module.exports = {

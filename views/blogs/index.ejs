@@ -10,16 +10,16 @@
           <div class="py-8 flex flex-wrap md:flex-nowrap">
             <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
               <span class="font-semibold title-font text-gray-700"
-                ><%= blog.category %></span
+                ><%- blog.category %></span
               >
               <!-- TODO: add date here -->
               <span class="mt-1 text-gray-500 text-sm"></span>
             </div>
             <div class="md:flex-grow">
               <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">
-                <%= blog.title %>
+                <%- blog.title %>
               </h2>
-              <p class="leading-relaxed"><%= blog.snippet %></p>
+              <p class="leading-relaxed"><%- blog.snippet %></p>
               <a href="/blogs/<%= blog._id %>" class="text-[#398378] inline-flex items-center mt-4 cursor-pointer"
                 >Learn More
                 <svg
