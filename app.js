@@ -23,6 +23,11 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path
+  next()
+})
+
 // routes
 app.get("/", (req, res) => {
   res.redirect("/blogs");
