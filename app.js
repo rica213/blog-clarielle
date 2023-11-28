@@ -1,12 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
-const blogRoutes = require('./routes/blogRoutes');
+const blogRoutes = require("./routes/blogRoutes");
+const path = require("path");
 
 const app = express();
 
-dotenv.config()
+dotenv.config();
 
 // connect to mongodb
 const dbURI = process.env.MONGODB_URI;
@@ -18,15 +19,17 @@ mongoose
 
 // register view engine
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 app.use((req, res, next) => {
-  res.locals.currentPath = req.path
-  next()
-})
+  res.locals.currentPath = req.path;
+  next();
+});
 
 // routes
 app.get("/", (req, res) => {
@@ -38,7 +41,7 @@ app.get("/about", (req, res) => {
 });
 
 // blog routes
-app.use('/blogs', blogRoutes);
+app.use("/blogs", blogRoutes);
 
 // 404 page
 app.use((req, res) => {
